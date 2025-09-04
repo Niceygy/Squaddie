@@ -74,7 +74,7 @@ Public
 
 @app.route("/")
 def index():
-    return 'HELLO'
+    return render_template("public/index.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5555)

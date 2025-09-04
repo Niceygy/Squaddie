@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS goals (
     id INT NOT NULL AUTO_INCREMENT,
-    commander_name VARCHAR(50),
     squad_id INT,
+    goal_units VARCHAR(40),
     progress_data JSON,
     PRIMARY KEY (id)
 )

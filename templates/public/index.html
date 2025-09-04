@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>Welcome | Squaddie</title>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="mainText" style="text-align: center;">
+      <h1>Welcome to Squaddie</h1>
+      <p><i>We can't think of an ancronym™️</i></p>
+    </div>
     
-</body>
+    <div class="whatIsIt" style="text-align: left;">
+        <p></p>
+    </div>
+
+    <div class="images" style="text-align: right;">
+        <img src="{{ url_for('static', filename='img/sittingTogether.jpg') }}" style="width: 30%; height: 30%; margin-right: 10vw;">
+    </div>
+  </body>
 </html>

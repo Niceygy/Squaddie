@@ -42,6 +42,7 @@ def handle_create(request):
     )
     database.session.add(newUser)
     database.session.commit()
+    
 
 def handle_signup(request) -> str:
     return render_template("public/auth/signup_before_capi.html")
