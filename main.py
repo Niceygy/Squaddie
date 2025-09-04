@@ -1,11 +1,37 @@
+from contextlib import contextmanager
+import os
 import traceback
 from flask import Flask, make_response, render_template, request
 from flask.cli import load_dotenv
 
-from server.auth.auth import handle_authorize, handle_callback
+from server.auth.handlers import handle_authorize, handle_callback
+from server.database.tables import database
+
+"""
+Init
+"""
 
 app = Flask(__name__)
 load_dotenv()
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI")
+app.config["SQLALCHEMY_POOL_SIZE"] = 10
+app.config["SQLALCHEMY_POOL_TIMEOUT"] = 30
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 280
+app.config["SQLALCHEMY_MAX_OVERFLOW"] = 20
+database.init_app(app)
+
+@contextmanager
+def session_scope():
+    session = database.session()
+    try:
+        yield session
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        print(" * Closing session")
+        session.close()
 
 """
 Error Handlers
