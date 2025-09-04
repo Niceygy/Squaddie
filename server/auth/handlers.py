@@ -22,7 +22,7 @@ def handle_callback(request):
             )
             
             return render_template(
-                "auth/signup_after_capi.html",
+                "public/auth/signup_after_capi.html",
                 commander_name=commander_name,
                 squad_name=squad_name,
             )
@@ -44,4 +44,4 @@ def handle_create(request):
     database.session.commit()
 
 def handle_signup(request) -> str:
-    return render_template("auth/signup_before_capi.html")
+    return render_template("public/auth/signup_before_capi.html")

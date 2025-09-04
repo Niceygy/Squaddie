@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
     <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>Create Account | Squaddie</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        function redirect() {
-            window.location.href = "{{ capi_redirect_url }}"
-        }
-
+      function redirect() {
+        window.location.href = "{{ capi_redirect_url }}";
+      }
     </script>
     <h1>Create account</h1>
     <p>Please log in with your Frontier account</p>
     <p>(so Squaddie knows who you are, what squad you're in, ect)</p>
     <p>You will then be redirected back here to make a password for squaddie</p>
-    <br>
-    <br>
+    <br />
+    <br />
     <button onclick="redirect()">Go!</button>
-</body>
+  </body>
 </html>
