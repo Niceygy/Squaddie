@@ -54,7 +54,16 @@ def exchange_code_for_tokens(code: str) -> list[str]:
         print("Error exchanging code for tokens:", response.status_code, response.text)
         return ["ERROR", response.text]
 
-def get_user_data(token, refresh_token, getPower=False):
+def get_user_data(token, refresh_token) -> tuple[str, str, str, str, str]:
+    """Gets the cAPI user data
+
+    Args:
+        token (str): cAPI token
+        refresh_token (str): cAPI refresh token
+
+    Returns: commander_name, squad_name, squad_tag, token, refresh_token
+        
+    """
     data, code = make_request("profile", token)
     if code != 200:
         #refresh

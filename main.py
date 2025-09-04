@@ -4,7 +4,7 @@ import traceback
 from flask import Flask, make_response, render_template, request
 from flask.cli import load_dotenv
 
-from server.auth.handlers import handle_authorize, handle_callback
+from server.auth.handlers import handle_authorize, handle_callback, handle_create
 from server.database.tables import database
 
 """
@@ -56,15 +56,17 @@ def internal_error(err):
 Auth - cAPI
 """
 
-@app.route("/authorize", methods=["GET"])
+@app.route("/auth/authorize", methods=["GET"])
 def authorize():
     return handle_authorize(request)
 
-@app.route("/callback", methods=["GET", "POST"])
+@app.route("/auth/callback", methods=["GET", "POST"])
 def callback():
     return handle_callback(request)
 
-
+@app.route("/auth/create", methods=["POST"])
+def create_user():
+    return handle_create(request)
 
 """
 Public
