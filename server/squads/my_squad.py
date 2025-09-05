@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request
 
-from server.database.tables import Users, Squads
+from server.database.tables import Goals, Users, Squads
 
 def get_squad_members(squad_name: str) -> list:
     squad = Squads.query.filter_by(sName=squad_name).first()
@@ -31,15 +31,20 @@ def handle_my_squad(request):
     if squad is None or user.squad_id == -1:
         return redirect("/squads/create")
     
-    goal_data = {
-        'name': "Example Goal!",
-        'contributors': 5,
-        'units': "combat bonds",
-        'goal': 500,
-        'progress': 150,
-        'percentage': (150 / 500) * 100,
-        'info': "We need to kill pirates!"
-    }
+    # goal_data = {
+    #     'name': "Example Goal!",
+    #     'contributors': 5,
+    #     'units': "combat bonds",
+    #     'goal': 500,
+    #     'progress': 150,
+    #     'percentage': (150 / 500) * 100,
+    #     'info': "We need to kill pirates!"
+    # }
+    
+    goal = Goals.query.filter_by(squad_id=squad.id).first()
+    goal_data = {}
+    if goal is not None:
+        goal_data = goal.progress_data
     
     return render_template(
         "squad/my_squad.html",

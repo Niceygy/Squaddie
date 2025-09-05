@@ -21,7 +21,7 @@
         <input type="hidden" name="squad_id" value="{{ squad_id }}" />
 
         <label for="goal_type">Type:</label>
-        <select id="goal_type" name="mission">
+        <select id="goal_type" name="goal_type">
             {% for goal_type in goal_types %}
                 <option value="{{ goal_type }}" {% if selected_goal_type == goal_type %}selected{% endif %}>{{ goal_type }}</option>
             {% endfor %}
