@@ -5,7 +5,7 @@ from flask import Flask, make_response, redirect, render_template, request, g
 from flask.cli import load_dotenv
 
 from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
-from server.database.tables import database
+from server.database.tables import Users, database
 from server.edmc import handle_cmdr_squad_lookup
 from server.goals.update import handle_update
 from server.squads.create import handle_squad_create
@@ -62,7 +62,10 @@ Auth - cAPI
 
 @app.route("/auth/signup", methods=["GET"])
 def signup():
-    return handle_signup(request)
+    if g.is_authenticated:
+        return redirect("/squads/me")
+    else:
+        return handle_signup(request)
 
 @app.route("/auth/authorize", methods=["GET"])
 def authorize():
@@ -87,10 +90,9 @@ def auth_user():
 def check_auth_cookies():
     g.is_authenticated = False
     name = request.cookies.get("name")
-    hash_val = request.cookies.get("hash")
-    if name and hash_val:
-        # Add your authentication logic here
-        g.is_authenticated = True  # Set to True if cookies are valid
+    hash = request.cookies.get("hash")
+    if name and hash:
+        g.is_authenticated = Users.query.filter_by(commander_name=name, password_hash=hash).first() is not None  
 
 """
 Squad Pages
