@@ -1,11 +1,13 @@
 from contextlib import contextmanager
 import os
 import traceback
-from flask import Flask, make_response, render_template, request
+from flask import Flask, make_response, render_template, request, g
 from flask.cli import load_dotenv
 
-from server.auth.handlers import handle_authorize, handle_callback, handle_create
+from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
 from server.database.tables import database
+from server.edmc import handle_cmdr_squad_lookup
+from server.goals.update import handle_update
 
 """
 Init
@@ -56,6 +58,10 @@ def internal_error(err):
 Auth - cAPI
 """
 
+@app.route("/auth/signup", methods=["GET"])
+def signup():
+    return handle_signup(request)
+
 @app.route("/auth/authorize", methods=["GET"])
 def authorize():
     return handle_authorize(request)
@@ -68,9 +74,37 @@ def callback():
 def create_user():
     return handle_create(request)
 
+@app.route("/auth/signin", methods=["GET", "POST"])
+def auth_user():
+    return handle_signin(request)
+
+@app.before_request
+def check_auth_cookies():
+    g.is_authenticated = False
+    name = request.cookies.get("name")
+    hash_val = request.cookies.get("hash")
+    if name and hash_val:
+        # Add your authentication logic here
+        g.is_authenticated = True  # Set to True if cookies are valid
+
+"""
+EDMC Plugin
+"""
+
+@app.route("/edmc/update", methods=["POST"])
+def edmc_update():
+    #plugin sends us data
+    return handle_update(request)
+
+@app.route("/edmc/search", methods=["POST"])
+def edmc_search():
+    #find the squad for a commander
+    return handle_cmdr_squad_lookup(request)
+
 """
 Public
 """
+
 
 @app.route("/")
 def index():

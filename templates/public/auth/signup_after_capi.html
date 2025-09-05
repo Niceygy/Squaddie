@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 
     <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>Create Password | Squaddie</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Finish account creation</h1>
     <p>Welcome {{ commander_name }}!</p>
     <form action="/auth/create" method="post" onsubmit="return hashPassword(event)">
-        <!-- visible -->
-        <input id="password" type="password" name="password">
-        <input id="password_confirm" type="password">
-        
-        <!-- hidden -->
-        <input type="hidden" id="password_hash" name="password_hash">
-        <input type="hidden" id="squad_name" name="squad_name" value="{{ squad_name }}">
-        <input type="hidden" id="commander_name" name="commander_name" value="{{ commander_name }}">
-        <button type="submit">Submit</button>
+      <!-- visible -->
+      <p>Password:</p>
+      <input id="password" type="password" name="password" />
+      <br />
+
+      <p>Password Confirm</p>
+      <input id="password_confirm" type="password" />
+      <br />
+      <br />
+      <!-- hidden -->
+      <input type="hidden" id="password_hash" name="password_hash" />
+      <input type="hidden" id="squad_name" name="squad_name" value="{{ squad_name }}" />
+      <input type="hidden" id="commander_name" name="commander_name" value="{{ commander_name }}" />
+      <button type="submit">Submit</button>
     </form>
     <p>You can then use this password and your commander name to log in!</p>
-    <br>
-    <br>
+    <br />
+    <br />
     <button onclick="redirect()">Go!</button>
     <script>
-        async function hashPassword(event) {
-            event.preventDefault();
-            const password = document.getElementById('password').value;
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            document.getElementById('password_hash').value = hashHex;
-            document.getElementById('password').value = '';
-            document.getElementById('password_confirm').value = '';
-            event.target.submit();
-            return false;
+      const generateHash = (string) => {
+        //https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript?noredirect=1&lq=1
+        let hash = 0;
+        for (const char of string) {
+          hash = (hash << 5) - hash + char.charCodeAt(0);
+          hash |= 0; // Constrain to 32bit integer
         }
+        return hash;
+      };
+
+      async function hashPassword(event) {
+        event.preventDefault();
+        const password = document.getElementById("password").value;
+        document.getElementById("password_hash").value = generateHash(password);
+        document.getElementById("password").value = "";
+        document.getElementById("commander_name").value = document.getElementById("commander_name").value.toLowerCase();
+        event.target.submit();
+        return false;
+      }
     </script>
-</body>
+  </body>
 </html>

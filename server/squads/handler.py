@@ -1,0 +1,1 @@
+def create_new_squad(request) -> str:

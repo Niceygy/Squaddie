@@ -11,14 +11,11 @@
   <body>
     <script>
       function redirect() {
-        window.location.href = "{{ redirect_url }}";
+        window.location.href = "/squad/me";
       }
     </script>
-    <h1>account Creation complete</h1>
+    <h1>{{ message }}</h1>
     <p>Welcome {{ commander_name }}!</p>
-    <p></p>
-    <p></p>
-    <br />
     <br />
     <button onclick="redirect()">Go!</button>
   </body>

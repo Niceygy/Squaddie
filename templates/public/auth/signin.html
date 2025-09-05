@@ -6,20 +6,49 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 
     <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
-    <title>Complete! | Squaddie</title>
+    <title>Sign In | Squaddie</title>
   </head>
   <body>
+    <h1>Sign into squaddie</h1>
+    <br />
+    <form action="/auth/signin" method="post" onsubmit="return hashPassword(event)">
+      <!-- visible -->
+      <p>Commander name</p>
+      <input id="commander_name" type="" name="commander_name" />
+      <br />
+      <p>Password</p>
+      <input id="password" type="password" />
+      <br />
+      <br />
+
+      <!-- hidden -->
+      <input type="hidden" id="password_hash" name="password_hash" />
+      <button type="submit">Submit</button>
+    </form>
+    <br />
+    <p>{{ error_message }}</p>
+    <br />
     <script>
-      function redirect() {
-        window.location.href = "{{ redirect_url }}";
+      const generateHash = (string) => {
+        //https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript?noredirect=1&lq=1
+        let hash = 0;
+        for (const char of string) {
+          hash = (hash << 5) - hash + char.charCodeAt(0);
+          hash |= 0; // Constrain to 32bit integer
+        }
+        return hash;
+      };
+
+      async function hashPassword(event) {
+        event.preventDefault();
+        const password = document.getElementById("password").value;
+        document.getElementById("password_hash").value = generateHash(password);
+        document.getElementById("password").value = "";
+        document.getElementById("commander_name").value = document.getElementById("commander_name").value.toLowerCase();
+        event.target.submit();
+        return false;
       }
     </script>
-    <h1>account Creation complete</h1>
-    <p>Welcome {{ commander_name }}!</p>
-    <p></p>
-    <p></p>
-    <br />
-    <br />
     <button onclick="redirect()">Go!</button>
   </body>
 </html>
