@@ -11,7 +11,9 @@ CODE_VERIFIER = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8")
 CODE_CHALLENGE = base64.urlsafe_b64encode(hashlib.sha256(CODE_VERIFIER.encode()).digest()).decode("utf-8").rstrip("=")
 SESSION_STATE = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8").rstrip("=")
 
-_REDIRECT_URI = quote_plus(os.getenv("CAPI_REDIRECT_URL"))
+_URI = os.getenv("CAPI_REDIRECT_URL")
+print(_URI)
+_REDIRECT_URI = quote_plus(_URI)
 _CLIENT_ID = os.getenv("CAPI_CLIENT_ID")
 
 AUTHORIZATION_URL = (
