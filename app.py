@@ -143,7 +143,7 @@ def edmc_update():
     #plugin sends us data
     return handle_update(request)
 
-@app.route("/edmc/search", methods=["POST"])
+@app.route("/edmc/search", methods=["GET"])
 def edmc_search():
     #find the squad for a commander
     return handle_cmdr_squad_lookup(request)
