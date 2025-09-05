@@ -1,4 +1,4 @@
-from server.database.tables import Squads, database
+from server.database.tables import Squads, Users, database
 from flask import render_template, request
 
 def handle_squad_create(request) -> str:
@@ -33,7 +33,10 @@ def handle_squad_create(request) -> str:
             squad_word_hash=""
         )
         database.session.add(new_squad)
+        database.session.flush()
+        
+        owner = Users.query.filter_by(commander_name=commander_name).first()
+        owner.squad_id = new_squad.id
+        
         database.session.commit()
-    # if not existing_squad and rank == "Owner":
-    #     return render_template("auth/create_squad.html", commander_name=commander_name)
         return render_template("squad/complete.html", commander_name=commander_name, message="Squad created successfully!")

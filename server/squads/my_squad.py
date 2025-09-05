@@ -2,6 +2,20 @@ from flask import redirect, render_template, request
 
 from server.database.tables import Users, Squads
 
+def get_squad_members(squad_name: str) -> list:
+    squad = Squads.query.filter_by(squad_name=squad_name).first()
+    if squad is None:
+        return []
+    
+    users = Users.query.filter_by(squad_id=squad.id).all()
+    
+    result = []
+    
+    for cmdr in users:
+        result.append(cmdr.commander_name)
+        
+    return result
+
 def handle_my_squad(request):
     """
     Handler for the 'my squad' page
@@ -14,11 +28,14 @@ def handle_my_squad(request):
     
     squad = Squads.query.filter_by(id=user.squad_id).first()
     
-    if squad is None or user.squad_id is -1:
+    if squad is None or user.squad_id == -1:
         return redirect("/squads/create")
     
     return render_template(
-        "squad/squad_page.html",
+        "squad/my_squad.html",
         name=squad.sName,
-        tag=squad.sTag
+        tag=squad.sTag,
+        owner=squad.sOwner,
+        goal_data={},
+        members=get_squad_members(squad.sName)
     )
