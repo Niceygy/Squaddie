@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
+    <title>Create Goal | Squaddie</title>
+  </head>
+  <body>
+    <div class="mainText" style="text-align: center">
+      <h1>Create a squad goal</h1>
+      <p>Create a goal for your squad's members to work towards!</p>
+      <br />
+      <br />
+
+      <form action="/goals/create" method="post">
+        <label for="title">Title:</label>
+        <input name="title"></info><br><br>
+
+        <input type="hidden" name="squad_id" value="{{ squad_id }}" />
+
+        <label for="goal_type">Type:</label>
+        <select id="goal_type" name="mission">
+            {% for goal_type in goal_types %}
+                <option value="{{ goal_type }}" {% if selected_goal_type == goal_type %}selected{% endif %}>{{ goal_type }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="info">Message:</label>
+        <input name="info"></info><br><br>
+
+        <label for="goal">Goal:</label>
+        <input name="goal" type="number"></info><br><br>
+
+        <button type="submit">Create Goal</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
+    <title>Creation Complete | Squaddie</title>
+  </head>
+  <body>
+    <script>
+        function redirect() {
+            window.location.href = "/squads/me"
+        }
+    </script>
+    <h1>Goal {{ goal_name }} created!</h1>
+    <p>Squaddie will now automatically track contributions to this goal</p>
+    <p>Remind people that they have to have the EDMC plugin installed & an account on Squaddie to contribute.</p>
+    <br>
+    <button onclick="redirect()">Continue</button>
+  </body>
+</html>

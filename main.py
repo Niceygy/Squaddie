@@ -26,6 +26,7 @@ from flask.cli import load_dotenv
 from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
 from server.database.tables import Users, database
 from server.edmc import handle_cmdr_squad_lookup
+from server.goals.create import handle_goal_create
 from server.goals.update import handle_update
 from server.squads.create import handle_squad_create
 from server.squads.my_squad import handle_my_squad
@@ -125,6 +126,13 @@ def squad_create():
 def squad_homepage():
     return handle_my_squad(request)
 
+"""
+Goal pages
+"""
+
+@app.route("/goals/create", methods=["GET", "POST"])
+def goal_create():
+    return handle_goal_create(request)
 
 """
 EDMC Plugin

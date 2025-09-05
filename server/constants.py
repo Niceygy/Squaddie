@@ -34,7 +34,6 @@ USER_AGENT = "EDCD-Squaddie-0.0.1"
 CAPI_TOKEN_URL = os.getenv("CAPI_BASE_URL") + "/token"
 
 GOAL_TYPES = {
-    "Combat": "combat",
+    "Combat Bonds": "combat",
     "Trade Profits": "trade profits",
-    # ""
 }
