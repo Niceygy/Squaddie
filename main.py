@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 import os
 import traceback
-from flask import Flask, make_response, render_template, request, g
+from flask import Flask, make_response, redirect, render_template, request, g
 from flask.cli import load_dotenv
 
 from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
@@ -78,7 +78,10 @@ def create_user():
 
 @app.route("/auth/signin", methods=["GET", "POST"])
 def auth_user():
-    return handle_signin(request)
+    if g.is_authenticated:
+        return redirect("/squads/me")
+    else:
+        return handle_signin(request)
 
 @app.before_request
 def check_auth_cookies():
@@ -122,7 +125,7 @@ Public
 
 @app.route("/")
 def index():
-    return render_template("public/index.html")
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5555)

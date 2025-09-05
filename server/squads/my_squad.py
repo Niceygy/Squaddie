@@ -18,7 +18,7 @@ def handle_my_squad(request):
         return redirect("/squads/create")
     
     return render_template(
-        "private/squad_page.html",
+        "squad/squad_page.html",
         name=squad.sName,
         tag=squad.sTag
     )

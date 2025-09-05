@@ -11,11 +11,11 @@ def handle_squad_create(request) -> str:
     rank = request.form.get("rank")
 
     if rank != "Owner":
-        return render_template("public/auth/complete.html", commander_name=commander_name, message="Only commanders with rank 'Owner' can create a squad.")
+        return render_template("auth/complete.html", commander_name=commander_name, message="Only commanders with rank 'Owner' can create a squad.")
 
     existing_squad = Squads.query.filter_by(sName=squad_name.lower()).first()
     if existing_squad:
-        return render_template("public/auth/complete.html", commander_name=commander_name, message="Squad already exists.")
+        return render_template("auth/complete.html", commander_name=commander_name, message="Squad already exists.")
 
     new_squad = Squads(
         sName=squad_name.lower(),
@@ -26,5 +26,5 @@ def handle_squad_create(request) -> str:
     database.session.add(new_squad)
     database.session.commit()
     if not existing_squad and rank == "Owner":
-        return render_template("public/auth/create_squad.html", commander_name=commander_name)
-    return render_template("public/auth/complete.html", commander_name=commander_name, message="Squad created successfully!")
+        return render_template("auth/create_squad.html", commander_name=commander_name)
+    return render_template("auth/complete.html", commander_name=commander_name, message="Squad created successfully!")
