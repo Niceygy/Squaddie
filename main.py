@@ -1,7 +1,26 @@
+"""
+/ - index
+/auth
+    - /signup (create new user - redirect to authorize)
+    - /authorize (auth with cAPI)
+    - /callback (callback handler from cAPI)
+    - /signin (auth existing user)
+    - /create (get user password & add in db after callback)
+    
+/edmc
+    - /update (get data from game)
+    - /search (plugin finds player squad)
+    
+/squads
+    - /create (load squad into squaddie db)
+    - /me (user's own squad)
+
+"""
+
 from contextlib import contextmanager
 import os
 import traceback
-from flask import Flask, make_response, redirect, render_template, request, g
+from flask import Flask, make_response, redirect, render_template, request, g, send_from_directory
 from flask.cli import load_dotenv
 
 from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
@@ -128,6 +147,10 @@ Public
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(app.static_folder, "icons/favicon.ico")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5555)
