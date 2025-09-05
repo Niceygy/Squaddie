@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='progressbar.css') }}" />
 
     <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>{{ name }} | Squaddie</title>
@@ -12,9 +13,23 @@
     <script>
     </script>
     <h1 style="text-align: center;">{{ name }}</h1>
-    <div class="leftInfo" style="text-align: left;">
+    <div class="leftInfo" style="text-align: left; margin-left: 10%;">
         <h3>Tag: {{ tag }}</h3>
         <h3>Owned By: {{ owner }}</h3>
+        <h3>Members:</h3>
+        {% for cmdr in members %}
+          <li>{{cmdr}}</li>
+        {% endfor %}
+    </div>
+
+    <div class="goalRight" style="text-align: right; margin-right: 10%; float: right;">
+      <h2>Goal: {{ goal_data.name }}</h2>
+      <p>{{ goal_data.info }}</p>
+      <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ goal_data.contributors }} members.</p>
+      <div class="animated-progress progress-bar" style="float: right;">
+        <span data-progress="30"></span>
+      </div>
+
     </div>
   </body>
 </html>

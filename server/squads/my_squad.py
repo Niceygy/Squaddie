@@ -3,7 +3,7 @@ from flask import redirect, render_template, request
 from server.database.tables import Users, Squads
 
 def get_squad_members(squad_name: str) -> list:
-    squad = Squads.query.filter_by(squad_name=squad_name).first()
+    squad = Squads.query.filter_by(sName=squad_name).first()
     if squad is None:
         return []
     
@@ -31,11 +31,21 @@ def handle_my_squad(request):
     if squad is None or user.squad_id == -1:
         return redirect("/squads/create")
     
+    goal_data = {
+        'name': "Example Goal!",
+        'contributors': 5,
+        'units': "combat bonds",
+        'goal': 500,
+        'progress': 150,
+        'percentage': (150 / 500) * 100,
+        'info': "We need to kill pirates!"
+    }
+    
     return render_template(
         "squad/my_squad.html",
         name=squad.sName,
         tag=squad.sTag,
         owner=squad.sOwner,
-        goal_data={},
+        goal_data=goal_data,
         members=get_squad_members(squad.sName)
     )
