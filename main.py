@@ -8,6 +8,8 @@ from server.auth.handlers import handle_authorize, handle_callback, handle_creat
 from server.database.tables import database
 from server.edmc import handle_cmdr_squad_lookup
 from server.goals.update import handle_update
+from server.squads.create import handle_squad_create
+from server.squads.my_squad import handle_my_squad
 
 """
 Init
@@ -88,6 +90,19 @@ def check_auth_cookies():
         g.is_authenticated = True  # Set to True if cookies are valid
 
 """
+Squad Pages
+"""
+
+@app.route("/squads/create", methods=["GET", "POST"])
+def squad_create():
+    return handle_squad_create(request)
+
+@app.route("/squads/me", methods=["GET"])
+def squad_homepage():
+    return handle_my_squad(request)
+
+
+"""
 EDMC Plugin
 """
 
@@ -104,7 +119,6 @@ def edmc_search():
 """
 Public
 """
-
 
 @app.route("/")
 def index():

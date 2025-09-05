@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
+    <title>Create Squad | Squaddie</title>
+  </head>
+  <body>
+    <div class="mainText" style="text-align: center">
+      <h1>Create your squad</h1>
+      <p>Put your squad onto the squaddie database, so that your members can join in!</p>
+      <p>
+        <i>This will only work for owners, if your owner is not avalible please <a href="http://discordapp.com/users/739413539239755786">Message me!</a></i>
+      </p>
+    </div>
+    <form action="/squads/create" method="post">
+      <input type="hidden" name="commander_name" value="{{ commander_name }}" />
+      <label for="squad_name">Squad Name:</label>
+      <input type="text" id="squad_name" name="squad_name" required />
+      <label for="squad_tag">Squad Tag:</label>
+      <input type="text" id="squad_tag" name="squad_tag" required />
+      <button type="submit">Create Squad</button>
+    </form>
+  </body>
+</html>

@@ -7,9 +7,15 @@ from server.database.tables import Users, database
 
 
 def handle_authorize(request):
+    """
+    Redirects to the Frontier Logon page
+    """
     return redirect(AUTHORIZATION_URL)
 
 def handle_callback(request):
+    """
+    handle FDev cAPI callback for auth
+    """
     try:
         code = request.args.get("code")
         expiry = request.args.get("expires_in")
@@ -30,6 +36,9 @@ def handle_callback(request):
         return e
     
 def handle_create(request):
+    """
+    Create user (after cAPI)
+    """
     password_hash = request.form.get("password_hash")
     commander_name = request.form.get("commander_name")
     squad_name = request.form.get("squad_name")
@@ -78,7 +87,8 @@ def handle_signin(request) -> str:
                 error_message="Incorrect password, try again"
             )
         else:
-            response = make_response(render_template("public/auth/complete.html"), commander_name=commander_name, message="Signin complete. Welcome back")
+            response = make_response(render_template("public/auth/complete.html", commander_name=commander_name, message="Signin complete. Welcome back"))
             response.set_cookie(key="name", value=commander_name)
             response.set_cookie(key="hash", value=password_hash)
+            return response
             
