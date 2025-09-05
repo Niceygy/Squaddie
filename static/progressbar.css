@@ -19,6 +19,7 @@
   padding-right: 5px;
 }
 
-.progress-bar span {
+.progress-blue span {
   background-color: rgb(230, 129, 14);
+  color: wheat ;
 }
