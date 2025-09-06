@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request
 
+from server.constants import GOAL_UNITS
 from server.database.tables import Goals, Users, Squads
 
 def get_squad_members(squad_name: str) -> list:
@@ -42,9 +43,13 @@ def handle_my_squad(request):
     # }
     
     goal = Goals.query.filter_by(squad_id=squad.id).first()
-    goal_data = {}
+    goal_data = {
+        'contributors': {}
+    }
     if goal is not None:
         goal_data = goal.progress_data
+        goal_data['units'] = GOAL_UNITS[goal.progress_data['units']]
+        
     
     return render_template(
         "squad/my_squad.html",
@@ -52,5 +57,6 @@ def handle_my_squad(request):
         tag=squad.sTag,
         owner=squad.sOwner,
         goal_data=goal_data,
-        members=get_squad_members(squad.sName)
+        members=get_squad_members(squad.sName),
+        contributors=len(goal_data['contributors'])
     )

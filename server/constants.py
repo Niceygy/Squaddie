@@ -12,7 +12,6 @@ CODE_CHALLENGE = base64.urlsafe_b64encode(hashlib.sha256(CODE_VERIFIER.encode())
 SESSION_STATE = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8").rstrip("=")
 
 _URI = os.getenv("CAPI_REDIRECT_URL")
-print(_URI)
 _REDIRECT_URI = quote_plus(_URI)
 _CLIENT_ID = os.getenv("CAPI_CLIENT_ID")
 
@@ -35,7 +34,18 @@ AUTHORIZATION_URL = (
 USER_AGENT = "EDCD-Squaddie-0.0.1"
 CAPI_TOKEN_URL = os.getenv("CAPI_BASE_URL") + "/token"
 
-GOAL_TYPES = {
-    "Combat Bonds": "combat",
-    "Trade": "trade profits",
+GOAL_TYPES = [
+    "Combat Bonds",
+    "Trade",
+    "Exploration",
+    "Powerplay",
+    "Exobiology"
+]
+
+GOAL_UNITS = {
+    "Combat Bonds": "CR",
+    "Trade": "CR",
+    "Exploration": "CR",
+    "Powerplay": "MERITS",
+    "Exobiology": "CR"
 }

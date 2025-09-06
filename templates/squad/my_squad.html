@@ -28,7 +28,7 @@
       }
     </script>
     <h1 style="text-align: center">{{ name }}</h1>
-    <div class="leftInfo" style="text-align: left; margin-left: 10%">
+    <div class="main" style="text-align: center">
       <h3>Tag: {{ tag }}</h3>
       <h3>Owned By: {{ owner }}</h3>
       <h3>Members:</h3>
@@ -36,17 +36,16 @@
       <li>{{cmdr}}</li>
       {% endfor %}
 
-      <br><br>
+      <br /><br />
       <button onclick="newGoalRedirect()">Create New Goal</button>
-    </div>
+      <!-- </div> -->
 
-    <div class="goalRight" style="text-align: right; margin-right: 10%; float: right">
+      <br /><br />
+      <!-- <div class="goalRight" style="text-align: right; margin-right: 10%; float: right"> -->
       <h2>Goal: {{ goal_data.name }}</h2>
       <p>{{ goal_data.info }}</p>
-      <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ goal_data.contributors }} members.</p>
-      <div class="animated-progress progress-bar" style="float: right">
-        <span data-progress="30"></span>
-      </div>
+      <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ contributors }} members.</p>
+      <progress value="{{ goal_data.progress }}" max="{{ goal_data.goal }}"></progress>
     </div>
   </body>
 </html>

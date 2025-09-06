@@ -1,7 +1,19 @@
-CREATE TABLE IF NOT EXISTS goals (
+-- CREATE TABLE IF NOT EXISTS goals (
+--     id INT NOT NULL AUTO_INCREMENT,
+--     squad_id INT,
+--     goal_units VARCHAR(40),
+--     progress_data JSON,
+--     PRIMARY KEY (id)
+-- )
+
+DROP TABLE contributions;
+
+CREATE TABLE IF NOT EXISTS contributions (
     id INT NOT NULL AUTO_INCREMENT,
+    goal_id INT,
+    user_id INT,
     squad_id INT,
-    goal_units VARCHAR(40),
-    progress_data JSON,
+    units VARCHAR(40),
+    quantity INTEGER,
     PRIMARY KEY (id)
 )

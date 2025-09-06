@@ -1,4 +1,5 @@
 from sqlalchemy import BOOLEAN, Column, Integer, String, JSON
+from sqlalchemy.ext.mutable import MutableDict
 from flask_sqlalchemy import SQLAlchemy
 
 database = SQLAlchemy()
@@ -17,7 +18,7 @@ class Users(database.Model):
     id = Column(Integer, primary_key=True)
     commander_name = Column(String(50))
     squad_id = Column(Integer)
-    progress_data = Column(JSON)
+    progress_data = Column(MutableDict.as_mutable(JSON))
     password_hash = Column(String(44))
     
 class Goals(database.Model):
@@ -25,4 +26,14 @@ class Goals(database.Model):
     id = Column(Integer, primary_key=True)
     squad_id = Column(Integer)
     goal_units = Column(String(40))
-    progress_data = Column(JSON)
+    progress_data = Column(MutableDict.as_mutable(JSON))
+    contributors = Column(Integer)
+    
+class Contributions(database.Model):
+    __tablename__ = "contributions"
+    id = Column(Integer, primary_key=True)
+    goal_id = Column(Integer)
+    squad_id = Column(Integer)
+    user_id = Column(Integer)
+    units = Column(String(40))
+    quantity = Column(Integer)

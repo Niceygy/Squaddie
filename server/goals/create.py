@@ -7,7 +7,7 @@ def handle_goal_create(request):
     if request.method == "GET":
         return render_template(
             "goals/create_goal.html",
-            goal_types=GOAL_TYPES.keys(),
+            goal_types=GOAL_TYPES,
             squad_id=get_squad_id(request.cookies.get("squad_name")),
         )
     elif request.method == "POST":
