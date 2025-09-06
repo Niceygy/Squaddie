@@ -37,5 +37,5 @@ CAPI_TOKEN_URL = os.getenv("CAPI_BASE_URL") + "/token"
 
 GOAL_TYPES = {
     "Combat Bonds": "combat",
-    "Trade Profits": "trade profits",
+    "Trade": "trade profits",
 }

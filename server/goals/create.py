@@ -19,7 +19,7 @@ def handle_goal_create(request):
 
         goal_data = {
             "name": title,
-            "contributors": 0,
+            "contributors": {},
             "units": goal_type,
             "goal": goal,
             "progress": 0,

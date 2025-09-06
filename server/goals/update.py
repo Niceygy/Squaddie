@@ -16,10 +16,11 @@ def handle_update(request):
     if 'event' in request.form:
         return
     
-    goal_type = request.form.get("type")
-    units = request.form.get("units")
-    commander_name = request.form.get("commander_identifier")
-    
+
+    goal_type = request.form.get('type')
+    commander_name = request.form.get('commander_identifier')
+    units = float(request.form.get('units'))
+        
 
     user = Users.query.filter_by(commander_name=commander_name).first()
     
@@ -43,9 +44,7 @@ def handle_update(request):
         return jsonify({
             'response': "OK"
         })
-    else:
-        
-        
+    else:        
         return jsonify({
             'response': "NOT_FOUND"
         })

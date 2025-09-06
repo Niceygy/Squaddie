@@ -3,7 +3,7 @@ from flask import make_response, redirect, render_template
 from server.auth.capi import exchange_code_for_tokens, get_user_data
 from server.constants import AUTHORIZATION_URL
 from server.database.squad import get_squad_id
-from server.database.tables import Users, database
+from server.database.tables import Squads, Users, database
 
 
 def handle_authorize(request):
@@ -106,6 +106,12 @@ def handle_signin(request) -> str:
                     message="Signin complete. Welcome back",
                 )
             )
+            
+            userSquad = Squads.query.filter_by(id=user.squad_id).first()
+            
+            response.set_cookie("squad_name", userSquad.sName)
+            response.set_cookie("squad_tag", userSquad.sTag)
+            
             response.set_cookie(key="name", value=commander_name)
             response.set_cookie(key="hash", value=password_hash)
             return response
