@@ -11,18 +11,6 @@
   </head>
   <body>
     <script>
-      $(document).ready(function () {
-        $(".animated-progress span").each(function () {
-          $(this).animate(
-            {
-              width: $(this).attr("data-progress") + "%",
-            },
-            1000
-          );
-          $(this).text($(this).attr("data-progress") + "%");
-        });
-      });
-
       function newGoalRedirect() {
         window.location.href = "/goals/create";
       }
@@ -48,7 +36,7 @@
       <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ contributors }} members.</p>
       <progress value="{{ goal_data.progress }}" max="{{ goal_data.goal }}"></progress>
       <br><br>
-      <p><i></i></p>
+      <p><i><a href="/squads/plugin">I need plugin help!</a></i></p>
     </div>
   </body>
 </html>

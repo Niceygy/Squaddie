@@ -9,6 +9,12 @@
     <title>Plugin Check | Squaddie</title>
   </head>
   <body>
+    <script>
+        function redirect() {
+            window.location.href = "/squads/me"
+        }
+    </script>
+
     <h1>EDMC Plugin Check</h1>
     <p>Your plugin is {{ plugin_status }}</p>
     <p><i>Last seen at {{ plugin_last_seen }}</i></p>
@@ -19,5 +25,6 @@
     <p>Then restart EDMC and you will see squaddie appear on it!</p>
     <br>
     <button onclick="location.reload()">Check again</button>
+    <button onclick="redirect()">Back</button>
   </body>
 </html>

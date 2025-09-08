@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request
+from flask import jsonify, redirect, render_template, request
 from server.database.tables import Users, Squads, PluginLastSeen, database
 from datetime import datetime
 
@@ -23,6 +23,8 @@ def handle_plugin_find_lastseen(request):
     Returns the last time the plugin was seen, if at all
     """
     commander_name = request.cookies.get("name")
+    if commander_name == "" or commander_name is None:
+        return redirect("/auth/signin")
     lastSeen = PluginLastSeen.query.filter_by(cmdr_name=commander_name).first()
     
     if lastSeen is None:
@@ -41,6 +43,9 @@ def handle_plugin_find_lastseen(request):
 def handle_plugin_online(request):
     commander_name = str(request.args.get("cmdr")).lower()
     
+    if commander_name == "":
+        return "CMDR_NAME=None"
+    
     lastSeen = PluginLastSeen.query.filter_by(cmdr_name=commander_name).first()
     
     if lastSeen is None:
@@ -56,3 +61,16 @@ def handle_plugin_online(request):
     database.session.commit()
     
     return 'OK'
+
+def handle_plugin_goal_lookup(requestd):
+    commander_name = str(request.args.get("cmdr")).lower()
+    
+    if commander_name == "":
+        return "CMDR_NAME=None"
+    
+    commander = Users.query.filter_by(commander_name=commander_name).first()
+    
+    if commander is None:
+        return "Invalid Commander"
+    
+    
