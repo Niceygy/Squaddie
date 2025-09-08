@@ -25,7 +25,7 @@ from flask.cli import load_dotenv
 
 from server.auth.handlers import handle_authorize, handle_callback, handle_create, handle_signin, handle_signup
 from server.database.tables import Users, database
-from server.edmc import handle_cmdr_squad_lookup
+from server.edmc import handle_cmdr_squad_lookup, handle_plugin_find_lastseen, handle_plugin_online
 from server.goals.create import handle_goal_create
 from server.goals.update import handle_update
 from server.squads.create import handle_squad_create
@@ -126,6 +126,10 @@ def squad_create():
 def squad_homepage():
     return handle_my_squad(request)
 
+@app.route("/squads/plugin", methods=["GET"])
+def squad_plugin():
+    return handle_plugin_find_lastseen(request)
+
 """
 Goal pages
 """
@@ -147,6 +151,12 @@ def edmc_update():
 def edmc_search():
     #find the squad for a commander
     return handle_cmdr_squad_lookup(request)
+
+@app.route("/edmc/online", methods=["GET"])
+def edmc_online():
+    return handle_plugin_online(request)
+
+
 
 """
 Public

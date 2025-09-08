@@ -27,8 +27,8 @@
         window.location.href = "/goals/create";
       }
     </script>
-    <h1 style="text-align: center">{{ name }}</h1>
-    <div class="main" style="text-align: center">
+    <h1>{{ name }}</h1>
+    <div class="main">
       <h3>Tag: {{ tag }}</h3>
       <h3>Owned By: {{ owner }}</h3>
       <h3>Members:</h3>
@@ -44,8 +44,11 @@
       <!-- <div class="goalRight" style="text-align: right; margin-right: 10%; float: right"> -->
       <h2>Goal: {{ goal_data.name }}</h2>
       <p>{{ goal_data.info }}</p>
+      <p>{{ help_message }}</p>
       <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ contributors }} members.</p>
       <progress value="{{ goal_data.progress }}" max="{{ goal_data.goal }}"></progress>
+      <br><br>
+      <p><i></i></p>
     </div>
   </body>
 </html>

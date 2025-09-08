@@ -1,4 +1,6 @@
+import math
 from server.database.tables import Goals, Contributions
+from server.constants import GOAL_UNITS
 
 
 def get_total_goal_data(squad_id: int):
@@ -14,15 +16,14 @@ def get_total_goal_data(squad_id: int):
         qty += item.quantity
         players += 1
         
-    # goal_data = {
-    #     'name': "Example Goal!",
-    #     'contributors': 5,
-    #     'units': "combat bonds",
-    #     'goal': 500,
-    #     'progress': 150,
-    #     'percentage': (150 / 500) * 100,
-    #     'info': "We need to kill pirates!"
-    # }
+
     return {
-        'name': goal.pro
+        'name': goal.progress_data['name'],
+        'contributors': players,
+        'units': GOAL_UNITS[goal.goal_units],
+        'type': goal.goal_units,
+        'goal': goal.progress_data['goal'],
+        'progress': qty,
+        'info': goal.progress_data['info'],
+        'bars': math.trunc((( qty / int(goal.progress_data['goal'])) * 100) / 10)
     }

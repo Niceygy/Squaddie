@@ -1,4 +1,4 @@
-from sqlalchemy import BOOLEAN, Column, Integer, String, JSON
+from sqlalchemy import BOOLEAN, Column, Integer, String, JSON, DateTime
 from sqlalchemy.ext.mutable import MutableDict
 from flask_sqlalchemy import SQLAlchemy
 
@@ -37,3 +37,9 @@ class Contributions(database.Model):
     user_id = Column(Integer)
     units = Column(String(40))
     quantity = Column(Integer)
+    
+class PluginLastSeen(database.Model):
+    __tablename__ = "plugin_lastseen"
+    id = Column(Integer, primary_key=True)
+    cmdr_name = Column(String(40))
+    time = Column(DateTime())

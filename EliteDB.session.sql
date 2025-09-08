@@ -6,14 +6,21 @@
 --     PRIMARY KEY (id)
 -- )
 
-DROP TABLE contributions;
+-- DROP TABLE contributions;
 
-CREATE TABLE IF NOT EXISTS contributions (
+-- CREATE TABLE IF NOT EXISTS contributions (
+--     id INT NOT NULL AUTO_INCREMENT,
+--     goal_id INT,
+--     user_id INT,
+--     squad_id INT,
+--     units VARCHAR(40),
+--     quantity INTEGER,
+--     PRIMARY KEY (id)
+-- )
+
+CREATE TABLE IF NOT EXISTS plugin_lastseen (
     id INT NOT NULL AUTO_INCREMENT,
-    goal_id INT,
-    user_id INT,
-    squad_id INT,
-    units VARCHAR(40),
-    quantity INTEGER,
+    cmdr_name VARCHAR(40),
+    time DATETIME,
     PRIMARY KEY (id)
 )

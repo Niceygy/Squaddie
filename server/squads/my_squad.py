@@ -1,7 +1,8 @@
 from flask import redirect, render_template, request
 
-from server.constants import GOAL_UNITS
+from server.constants import GOAL_MESSAGE_TEMPLATE, GOAL_MESSAGES
 from server.database.tables import Goals, Users, Squads
+from server.goals.contrubutions import get_total_goal_data
 
 def get_squad_members(squad_name: str) -> list:
     squad = Squads.query.filter_by(sName=squad_name).first()
@@ -43,9 +44,7 @@ def handle_my_squad(request):
     # }
     
     goal = Goals.query.filter_by(squad_id=squad.id).first()
-    goal_data = {
-        'contributors': {}
-    }
+    goal_data = get_total_goal_data(squad.id)
     # if goal is not None:
 
         
@@ -56,6 +55,7 @@ def handle_my_squad(request):
         tag=squad.sTag,
         owner=squad.sOwner,
         goal_data=goal_data,
+        help_message=f"{GOAL_MESSAGE_TEMPLATE} {GOAL_MESSAGES[goal_data['type']]}",
         members=get_squad_members(squad.sName),
-        contributors=len(goal_data['contributors'])
+        contributors=goal_data['contributors']
     )
