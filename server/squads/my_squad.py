@@ -46,9 +46,8 @@ def handle_my_squad(request):
     goal_data = {
         'contributors': {}
     }
-    if goal is not None:
-        goal_data = goal.progress_data
-        goal_data['units'] = GOAL_UNITS[goal.progress_data['units']]
+    # if goal is not None:
+
         
     
     return render_template(

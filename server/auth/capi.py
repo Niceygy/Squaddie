@@ -2,11 +2,13 @@ from urllib.parse import quote_plus, urlencode
 from server.constants import USER_AGENT, CAPI_TOKEN_URL, CODE_VERIFIER
 import os
 import requests
+import json  # Add this import at the top
 
 def make_request(url, token):
     headers = {"User-Agent": USER_AGENT, "Authorization": f"Bearer {token}"}
     API_URL = "https://companion.orerve.net/"
     resp = requests.get(f"{API_URL}{url}", headers=headers)
+    # resp.text
     return resp.json(), resp.status_code
 
 def use_refresh_token(refresh_token: str) -> str:
@@ -41,7 +43,7 @@ def exchange_code_for_tokens(code: str) -> list[str]:
             "client_id": os.getenv("CAPI_CLIENT_ID"),
         }
     ).encode("utf-8")
-    print(f"data = {data}")
+    # print(f"data = {data}")
     response = requests.post(CAPI_TOKEN_URL, headers=headers, data=data, timeout=50)
     if response.status_code == 200:
         tokens = response.json()
@@ -72,4 +74,8 @@ def get_user_data(token, refresh_token) -> tuple[str, str, str, str, str]:
         commander_name =  data['commander']['name']
         squad_name = data['squadron']['name']
         squad_tag = data['squadron']['tag']
+        # tmp = make_request("", token)
+        # with open('endpoint.json', 'w', encoding='utf-8') as f:
+        #     json.dump(tmp[0], f, ensure_ascii=False, indent=4)
+        #     f.close()# Write only the JSON part of the tuple
         return commander_name, squad_name, squad_tag, token, refresh_token
