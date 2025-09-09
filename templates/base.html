@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer" style="bottom: 0;">
+        <br><br><br><br><br>
+        {% block footer %}
+        <a href="/">Home</a>
+        <br>
+        made with 🩷 & 💥, by <a href="https://niceygy.net">Niceygy</a>
+        {% endblock %}
+    </div>
+</body>
+</html>

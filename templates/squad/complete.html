@@ -1,14 +1,11 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-
-    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>Creation Complete | Squaddie</title>
   </head>
   <body>
+    {% block content %}
     <script>
         function redirect() {
             window.location.href = "/squads/me"
@@ -20,5 +17,6 @@
     <p>Each squad can have one squad goal at a time, and all members with the EDMC Plugin will automatically contribute to this</p>
     <br>
     <button onclick="redirect()">Continue</button>
+    {% endblock %}
   </body>
 </html>

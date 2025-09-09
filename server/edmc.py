@@ -41,6 +41,9 @@ def handle_plugin_find_lastseen(request):
         )
         
 def handle_plugin_online(request):
+    """
+    Updates the last seen record in 
+    """
     commander_name = str(request.args.get("cmdr")).lower()
     
     if commander_name == "":

@@ -1,18 +1,21 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='progressbar.css') }}" />
-
-    <script defer src="https://data.niceygy.net/script.js" data-website-id="587f25e4-e5c9-40f3-aa7b-0a789d34cd8e"></script>
     <title>{{ name }} | Squaddie</title>
   </head>
   <body>
+    {% block content %}
     <script>
       function newGoalRedirect() {
-        window.location.href = "/goals/create";
+        if ("{{ is_owner }}" == "true") {
+          umami.track("createNewGoal")
+          window.location.href = "/goals/create";
+        } else {
+          umami.track("createNewGoalFail")
+          window.alert("You don't own this squad!");
+        }
       }
     </script>
     <h1>{{ name }}</h1>
@@ -35,8 +38,11 @@
       <p>{{ help_message }}</p>
       <p>Progress: {{ goal_data.progress }} / {{ goal_data.goal }} {{ goal_data.units }} by {{ contributors }} members.</p>
       <progress value="{{ goal_data.progress }}" max="{{ goal_data.goal }}"></progress>
-      <br><br>
-      <p><i><a href="/squads/plugin">I need plugin help!</a></i></p>
+      <br /><br />
+      <p>
+        <i><a href="/squads/plugin">I need plugin help!</a></i>
+      </p>
     </div>
+    {% endblock %}
   </body>
 </html>

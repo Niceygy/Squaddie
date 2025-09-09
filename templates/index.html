@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,12 +9,15 @@
     <title>Welcome | Squaddie</title>
   </head>
   <body>
+    {% block content %}
     <div class="mainText">
       <h1>Welcome to Squaddie</h1>
       <p><i>We can't think of an ancronym™️</i></p>
       <br><br>
       <p>Squaddie allows you to set goals for your squadron! Use the EDMC plugin to track your progress</p>
     </div>
+
+    <span style="position: absolute; left: -9999px;">Squaddie should be screen reader friendly & tab navigable, but if you have any issues please contact me via go dot nice y g y dot net slash squaddie underscore thread"</span>
     
     <div class="authButtons">
         <p><a href="/auth/signin">Sign In</a></p> 
@@ -28,5 +32,6 @@
     <div class="images" style="text-align: right;">
         <!-- <img src="{{ url_for('static', filename='img/sittingTogether.jpg') }}" style="width: 30%; height: 30%; margin-right: 10vw;"> -->
     </div>
+    {% endblock %}
   </body>
 </html>
