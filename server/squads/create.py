@@ -18,7 +18,7 @@ def handle_squad_create(request) -> str:
         squad_tag = request.form.get("squad_tag")
         rank = request.form.get("rank")
 
-        if rank != "Owner" and False: #TEMP
+        if rank != "Owner": #TEMP
             return render_template("errors/generic.html", commander_name=commander_name, error_title="You can't do this!", error_message="Only commanders with rank 'Owner' can create a squad.")
 
         if squad_name is not None:

@@ -42,7 +42,10 @@ def handle_plugin_find_lastseen(request):
         
 def handle_plugin_online(request):
     """
-    Updates the last seen record in 
+    Updates the last seen record in the plugin_lastseen table
+    (if it exists) or creates a new one (if it dosen't).
+    
+    Returns JSON about the current goal, if any
     """
     commander_name = str(request.args.get("cmdr")).lower()
     
@@ -63,17 +66,9 @@ def handle_plugin_online(request):
     database.session.flush()
     database.session.commit()
     
-    return 'OK'
+    return jsonify({
+        'info': "",
+        'type': "",
+    })
 
-def handle_plugin_goal_lookup(requestd):
-    commander_name = str(request.args.get("cmdr")).lower()
-    
-    if commander_name == "":
-        return "CMDR_NAME=None"
-    
-    commander = Users.query.filter_by(commander_name=commander_name).first()
-    
-    if commander is None:
-        return "Invalid Commander"
-    
     

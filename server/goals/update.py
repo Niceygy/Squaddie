@@ -1,6 +1,4 @@
 from flask import jsonify
-import hashlib
-
 from server.database.squad import get_squad_id
 from server.database.tables import Goals, Users, Contributions
 from server.database.tables import database

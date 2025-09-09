@@ -1,10 +1,18 @@
 from flask import redirect, render_template, request
 
 from server.constants import GOAL_MESSAGE_TEMPLATE, GOAL_MESSAGES
-from server.database.tables import Goals, Users, Squads
+from server.database.tables import Users, Squads
 from server.goals.contrubutions import get_total_goal_data
 
 def get_squad_members(squad_name: str) -> list:
+    """Returns a list of all squad member's names
+
+    Args:
+        squad_name (str): Squadron name (lowercase)
+
+    Returns:
+        list: List of all squad members
+    """
     squad = Squads.query.filter_by(sName=squad_name).first()
     if squad is None:
         return []

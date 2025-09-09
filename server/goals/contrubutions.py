@@ -3,7 +3,15 @@ from server.database.tables import Goals, Contributions
 from server.constants import GOAL_UNITS
 
 
-def get_total_goal_data(squad_id: int):
+def get_total_goal_data(squad_id: int) -> dict:
+    """JSON about a squad's active goal
+
+    Args:
+        squad_id (int): Squadron ID in the squaddie db
+
+    Returns:
+        dict: JSON
+    """
     goal = Goals.query.filter_by(squad_id=squad_id).first()
     
     contributions = Contributions.query.filter_by(goal_id=goal.id, squad_id=squad_id).all()

@@ -8,8 +8,17 @@ Session Spesific Keys
 """
 
 CODE_VERIFIER = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8")
+"""
+Session spesific code verifier for cApi logon. Base64
+"""
 CODE_CHALLENGE = base64.urlsafe_b64encode(hashlib.sha256(CODE_VERIFIER.encode()).digest()).decode("utf-8").rstrip("=")
+"""
+Session spesific code challenge for cApi logon. Base64
+"""
 SESSION_STATE = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8").rstrip("=")
+"""
+Session spesific session state for cApi logon. Base64
+"""
 
 _URI = os.getenv("CAPI_REDIRECT_URL")
 _REDIRECT_URI = quote_plus(_URI)
@@ -26,12 +35,16 @@ AUTHORIZATION_URL = (
     "code_challenge_method=S256&"
     "scope=auth%20capi"
     )
-
+"""
+Capi logon URI
 """
 
+"""
+Constant... Constants
 """
 
 USER_AGENT = "EDCD-Squaddie-0.0.1"
+"""User agent for Capi and plugin requests"""
 CAPI_TOKEN_URL = os.getenv("CAPI_BASE_URL") + "/token"
 
 GOAL_TYPES = [
@@ -41,6 +54,9 @@ GOAL_TYPES = [
     "Powerplay",
     "Exobiology"
 ]
+"""
+Accepted goal types
+"""
 
 GOAL_UNITS = {
     "Combat Bonds": "CR",
@@ -49,6 +65,9 @@ GOAL_UNITS = {
     "Powerplay": "MERITS",
     "Exobiology": "CR"
 }
+"""
+What you need to earn for each of the goal types
+"""
 
 GOAL_MESSAGES = {
     "Combat Bonds": "EARN COMBAT BONDS",
@@ -57,6 +76,9 @@ GOAL_MESSAGES = {
     "Powerplay": "EARN POWERPLAY MERITS",
     "Exobiology": "SELL BIO DATA"
 }
+"""
+Basic instructions for each of the goal types
+"""
 
 GOAL_MESSAGE_TEMPLATE = "THIS GOAL REQUIRES YOU TO"
 GOAL_PLUGIN_LINKED = "YOUR EDMC SQUADDIE PLUGIN IS WORKING & CONNECTED!"
