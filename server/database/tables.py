@@ -28,6 +28,7 @@ class Goals(database.Model):
     goal_units = Column(String(40))
     progress_data = Column(MutableDict.as_mutable(JSON))
     contributors = Column(Integer)
+    short_description = Column(String(30))
     
 class Contributions(database.Model):
     __tablename__ = "contributions"

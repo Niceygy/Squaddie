@@ -1,5 +1,5 @@
 from flask import jsonify, redirect, render_template, request
-from server.database.tables import Users, Squads, PluginLastSeen, database
+from server.database.tables import Users, Squads, PluginLastSeen, database, Goals
 from datetime import datetime
 
 
@@ -48,6 +48,7 @@ def handle_plugin_online(request):
     Returns JSON about the current goal, if any
     """
     commander_name = str(request.args.get("cmdr")).lower()
+    get_goal_info = bool(request.args.get("goal_info").lower())
     
     if commander_name == "":
         return "CMDR_NAME=None"
@@ -66,9 +67,19 @@ def handle_plugin_online(request):
     database.session.flush()
     database.session.commit()
     
-    return jsonify({
-        'info': "",
-        'type': "",
-    })
+    if get_goal_info:
+        commander = Users.query.filter_by(commander_name=commander_name).first()
+        if commander is None:
+            return jsonify({})
+        
+        squadGoal = Goals.query.filter_by(squad_id=commander.squad_id).first()
+        
+    
+        return jsonify({
+            'info': squadGoal.short_description if (squadGoal is not None) else 'NO ACTIVE GOAL',
+            'type': squadGoal.goal_units if (squadGoal is not None) else '',
+        })
+    else:
+        return 'OK'
 
     
